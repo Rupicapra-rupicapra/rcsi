@@ -1,0 +1,5 @@
+TO-DO for further developments:
+
+[ ] Classify data columns for intelligent plotting
+[ ] Create an auto-plot function using ggplot2
+[ ] Support of other file formats like TOBI1 and CSIJSON
