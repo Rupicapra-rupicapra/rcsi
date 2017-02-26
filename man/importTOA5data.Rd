@@ -4,16 +4,18 @@
 \alias{importTOA5data}
 \title{imports a datafile into an R structure (type of structure depends on \code{RetOpt})}
 \usage{
-importTOA5data(filename, RetOpt = "all")
+importTOA5data(filename, RetOpt = "data", time = "POSIXlt")
 }
 \arguments{
 \item{filename}{the TOA5 file name with extension (generally .dat)}
 
-\item{RetOpt}{Return option. As TOA5 has a header before data, you can choose to get the header (\code{RetOpt = "info"}, structure type = vector), the data (\code{RetOpt = "data"}, structure type = data.frame) or both (\code{RetOpt = "all"} (default), structure type = list).}
+\item{RetOpt}{Return option. As TOA5 has a header before data, you can choose to get the header (\code{RetOpt = "info"}, structure type = vector), the data (\code{RetOpt = "data"}(default), structure type = data.frame) or both (\code{RetOpt = "all"} , structure type = list).}
+
+\item{time}{Time structure for storing TIMESTAMP. May be \code{POSIXct} or \code{POSIXlt}. POSIXlt is a better solution for milisecond precision, but causes weird behavior with \code{reshape2::melt} function.}
 }
 \value{
 An R Structure depending on \code{RetOpt} param.
 }
 \description{
-\code{importCSdata} reads TOA5 text file and transposes contents into an R structure
+\code{importTOA5data} reads TOA5 text file and transposes contents into an R structure
 }

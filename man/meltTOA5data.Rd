@@ -4,10 +4,15 @@
 \alias{meltTOA5data}
 \title{Pre-built function to melt imported data}
 \usage{
-meltTOA5data(data)
+meltTOA5data(data, to.POSIXct = FALSE)
 }
 \arguments{
-\item{data}{The data which needs to be melted. Warning: if your \code{RetOpt} in \code{importCSdata} was "all", specify which part of the list should be melted (eg \code{myvar$data})}
+\item{data}{The data which needs to be melted. Warning: if your \code{RetOpt} in \code{importCSdata} was "all", specify which part of the list should be melted (eg \code{myvar$data}).}
+
+\item{to.POSIXct}{Determines wether TIMESTAMP should be converted to POSIXct (in case it's stored as POSIXlt) or not.}
+}
+\value{
+melted data frame.
 }
 \description{
 Pre-built function to melt imported data
