@@ -1,5 +1,4 @@
 require(reshape2)
-# require(ggplot2) Not yet… In a further version maybe
 
 #' Reads header only
 #' @keywords internal

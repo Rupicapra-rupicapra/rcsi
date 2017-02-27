@@ -2,9 +2,13 @@ Package: rcsi
 Type: Package
 Title: R package to import Campbell Scientific (r) data files
 Version: 1.0.0
-Author: Jerry Magnin
+Author: Dirk Baker [ccp, cre],
+  Jerry Magnin [cre]
 Maintainer: Jerry Magnin <dev@montagnisme.fr>
-Description: This package imports Campbell Scientific (r) data files, and stores theirs contents as R data structure.
-License: GPL V3 or later
+Description: Provides functions to import Campbell Scientific (r) data files, and stores theirs contents as R data structure.
+License: GPL(>= 3)
+Depends: R(>= 3.2)
+Imports:
+  reshape2
 LazyData: TRUE
 RoxygenNote: 6.0.1
