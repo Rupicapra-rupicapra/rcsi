@@ -2,14 +2,14 @@ require(reshape2)
 
 #' Read header
 #' @keywords internal
-.readTOACIHeader <- function(filename)
+.readTOAC1Header <- function(filename)
 {
   return(scan(file = filenames, nlines = 2, what = character(), sep = "\r"))
 }
 
 #' Read TOACI data
 #' @keywords internal
-.readTOACIData <- function(filename, time)
+.readTOAC1Data <- function(filename, time)
 {
   header <- scan(file = filename,
                  nlines = 1,
@@ -29,11 +29,11 @@ require(reshape2)
   
   if(time == "POSIXct")
   {
-    station.data$TIMESTAMP <- as.POSIXct(strptime(station.data$TIMESTAMP, format = timeformat))
+    station.data$TMSTAMP <- as.POSIXct(strptime(station.data$TMSTAMP, format = timeformat))
   }
   else
   {
-    station.data$TIMESTAMP <- as.POSIXlt(strptime(station.data$TIMESTAMP, format = timeformat))
+    station.data$TMSTAMP <- as.POSIXlt(strptime(station.data$TMSTAMP, format = timeformat))
   }
 }
 
@@ -43,23 +43,23 @@ require(reshape2)
 #'
 #' @param filename the TOACI file name with extension (generally .dat)
 #' @param RetOpt Return option. As TOACI has a header before data, you can choose to get the header (\code{RetOpt = "info"}, structure type = vector), the data (\code{RetOpt = "data"}(default), structure type = data.frame) or both (\code{RetOpt = "all"} , structure type = list).
-#' @param time Time structure for storing TIMESTAMP. May be \code{POSIXct} or \code{POSIXlt}. POSIXlt is a better solution for milisecond precision, but causes weird behavior with \code{reshape2::melt} function.
+#' @param time Time structure for storing TMSTAMP. May be \code{POSIXct} or \code{POSIXlt}. POSIXlt is a better solution for milisecond precision, but causes weird behavior with \code{reshape2::melt} function.
 #' @return An R Structure depending on \code{RetOpt} param.
 #' @export
-importTOACIdata <- function(filename, RetOpt = "data", time = "POSIXlt")
+importTOAC1data <- function(filename, RetOpt = "data", time = "POSIXlt")
 {
   if(RetOpt == "info")
   {
-    return(.readTOACIHeader(filename))
+    return(.readTOAC1Header(filename))
   }
   else if(RetOpt == "all")
   {
-    fullHeader <- .readTOACIHeader(filename)
-    stationData <- .readTOACIData(filename, time)
+    fullHeader <- .readTOAC1Header(filename)
+    stationData <- .readTOAC1Data(filename, time)
     return(list(infos = fullHeader, data = stationData))
   }
   else
   {
-    return(.readTOACIData(filename, time))
+    return(.readTOAC1Data(filename, time))
   }
 }
