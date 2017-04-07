@@ -1,0 +1,52 @@
+---
+title: "rcsi documentation"
+author: "Jerry Magnin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Package Info
+
+`rcsi` was written to provide a simple tool to read Campbelle Scientific (r) dataloggers output. It currently supports the following formats:
+
+* TOA5 (ASCII table with 4-row header)
+* TOACI1 (ASCII table with 2-row header)
+
+It will provide, in further version, support for:
+
+* TOB1 (binary table with ASCII header)
+
+Automatic file format detection is also planned for a future revision.
+
+# Usage
+
+First, you need to import the package inside your workspace with `library(rcsi)`.
+Once it's done, call the function you need, depending on the file type. In the following example, we will use the `TOA5TestSet.dat` TOA5 example file provided in the `test/testthat` directory.
+
+```{r importData}
+library(rcsi)
+dat <- importTOA5data('../tests/testthat/TOA5TestSet.dat', RetOpt = 'all', time = 'POSIXct')
+print(dat)
+```
+
+Now your data is imported, you can manipulate it as R objects. For this example, I imported both header & data in a list, so I have to specify the part of my object I want to manipulate.
+
+```{r plotData}
+plot(x = dat$data$TIMESTAMP, y = dat$data$PTemp, type="b")
+```
+
+You can also reshape your data & plot them with `ggplot2`
+```{r ggplot2 usage}
+library(reshape2)
+library(ggplot2)
+
+reshapedDat <- melt(data = dat$data[c('TIMESTAMP', 'RECORD', 'PTemp')], id.vars = c('TIMESTAMP', 'RECORD'))
+print(reshapedDat)
+
+plt <- ggplot(reshapedDat) + geom_line(aes(x=TIMESTAMP, y = value, colour = variable))
+plt
+```

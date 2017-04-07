@@ -14,7 +14,7 @@ require(reshape2)
   # second line of header contains variable names
   header <- scan(file=filename,skip=1,nlines=1,what=character(),sep=",")
   # bring in data
-  station.data <- read.table(file=filename,skip=4,header=FALSE, na.strings=c("NAN"),sep=",", stringsAsFactors = FALSE)
+  station.data <- utils::read.table(file=filename,skip=4,header=FALSE, na.strings=c("NAN"),sep=",", stringsAsFactors = FALSE)
   names(station.data) <- header
   # add column of R-formatted date/timestamps. Default is POSIXlt (millisecond precision).
   if(time == "POSIXct")
@@ -68,5 +68,5 @@ meltTOA5data <- function(data, to.POSIXct = FALSE)
   {
     data$TIMESTAMP <- as.POSIXct(data$TIMESTAMP)
   }
-  return(melt(data, id.vars=c("RECORD", "TIMESTAMP"), variable.name="Param"))
+  return(reshape2::melt(data, id.vars=c("RECORD", "TIMESTAMP"), variable.name="Param"))
 }

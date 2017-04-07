@@ -16,7 +16,7 @@ require(reshape2)
                  skip = 1,
                  what = character(),
                  sep = ",")
-  station.data <- read.table(file = filename,
+  station.data <- utils::read.table(file = filename,
                              skip = 2,
                              header = FALSE,
                              na.string = c("NAN"),
